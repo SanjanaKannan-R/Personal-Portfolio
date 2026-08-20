@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjana Kannan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1020;
+    --bg-elevated:#151c31;
+    --bg-card:rgba(22,29,50,.78);
+    --text:#f5f0e8;
+    --text-dim:#b9c0d0;
+    --text-faint:#79839b;
+    --accent-teal:#5ce2c2;
+    --accent-teal-soft:rgba(92,226,194,.13);
+    --accent-amber:#ffbd6a;
+    --accent-amber-soft:rgba(255,189,106,.12);
+    --accent-violet:#a998ff;
+    --border:rgba(205,215,240,.17);
+    --border-soft:rgba(205,215,240,.10);
+    --shadow:0 18px 45px rgba(1,4,15,.27);
+    --radius:16px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px),
+      radial-gradient(circle at 12% 6%, rgba(92,226,194,.16), transparent 27%), radial-gradient(circle at 88% 36%, rgba(169,152,255,.13), transparent 28%), radial-gradient(circle at 65% 98%, rgba(255,189,106,.11), transparent 29%);
+    background-size:42px 42px, 42px 42px, auto, auto, auto;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,16,32,.75);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:17px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-brand{
+    font-family:var(--mono); font-size:13px; color:var(--accent-teal);
+    letter-spacing:0.02em;
+  }
+  .nav-links{display:flex; gap:22px; list-style:none;}
+  .nav-links a{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    text-decoration:none; transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--accent-teal);}
+  .nav-links{display:none;}
+  @media(min-width:640px){ .nav-links{display:flex;} }
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:82px 0 72px;}
+  .editor-chrome{
+    background:rgba(21,28,49,.88);
+    border:1px solid var(--border);
+    border-bottom:none;
+    border-radius:var(--radius) var(--radius) 0 0;
+    padding:11px 16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.red{background:#E5645C;} .dot.yellow{background:#E5B85C;} .dot.green{background:#4CAE71;}
+  .filename{
+    margin-left:12px; font-family:var(--mono); font-size:12px; color:var(--text-faint);
+  }
+  .editor-body{
+    background:linear-gradient(135deg, rgba(29,38,65,.96), rgba(18,24,43,.91));
+    border:1px solid var(--border);
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:clamp(32px,6vw,58px) clamp(24px,6vw,58px);
+    box-shadow:var(--shadow);
+    overflow:hidden; position:relative;
+  }
+  .editor-body::after{content:'{ }'; position:absolute; right:5%; bottom:-18px; font:700 clamp(110px,20vw,210px)/1 var(--display); color:rgba(92,226,194,.045); pointer-events:none;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; color:var(--accent-teal);
+    margin-bottom:14px; display:block;
+  }
+  .eyebrow::before{content:'const status = '; color:var(--text-faint);}
+  h1{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(44px,8vw,76px);
+    line-height:.98; letter-spacing:-.055em;
+    margin-bottom:16px;
+  }
+  .role-line{
+    font-family:var(--mono); font-size:clamp(15px,2.4vw,18px);
+    color:var(--text-dim); min-height:26px; margin-bottom:22px;
+  }
+  .role-line .cursor{
+    display:inline-block; width:8px; height:18px; background:var(--accent-amber);
+    margin-left:2px; vertical-align:-3px;
+    animation:blink 1s step-start infinite;
+  }
+  @keyframes blink{ 50%{opacity:0;} }
+  .bio{max-width:635px; color:var(--text-dim); font-size:16px; margin-bottom:26px;}
+  .location{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-faint); margin-bottom:28px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .location-mark{width:9px; height:9px; display:inline-block; border:1.5px solid var(--accent-amber); border-radius:50%; position:relative;}
+  .location-mark::after{content:''; position:absolute; width:2px; height:2px; border-radius:50%; background:var(--accent-amber); left:2px; top:2px;}
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px;}
+  .btn{
+    font-family:var(--mono); font-size:13px; padding:11px 20px;
+    border-radius:6px; text-decoration:none; transition:transform .15s, background .2s, border-color .2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent-teal); color:#071711; font-weight:600; box-shadow:0 7px 22px rgba(92,226,194,.17);}
+  .btn-ghost{background:transparent; border:1px solid var(--border); color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--accent-teal); color:var(--accent-teal);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:78px 0; border-top:1px solid var(--border-soft);}
+  .sec-head{
+    font-family:var(--mono); font-size:13px; color:var(--text-faint);
+    margin-bottom:34px; display:flex; align-items:baseline; gap:10px;
+  }
+  .sec-head .n{color:var(--accent-teal);}
+  .sec-head .title{
+    font-family:var(--display); font-weight:600; font-size:22px; color:var(--text);
+  }
+  .sec-head::after{content:''; height:1px; flex:1; max-width:150px; background:linear-gradient(90deg, var(--border), transparent);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:54px;}
+  @media(max-width:680px){ .about-grid{grid-template-columns:1fr;} }
+  .about-text p{color:var(--text-dim); font-size:15.5px; margin-bottom:14px;}
+  .stat-block{
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:var(--radius); padding:22px; backdrop-filter:blur(10px);
+    font-family:var(--mono); font-size:12.5px; color:var(--text-faint);
+    box-shadow:var(--shadow);
+  }
+  .stat-block .stat-title{color:var(--text-dim); margin-bottom:14px;}
+  .stat-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--border-soft);}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .val{color:var(--accent-amber); font-weight:600;}
+
+  /* ---------- SKILLS ---------- */
+  .skill-group{margin-bottom:22px;}
+  .skill-group:last-child{margin-bottom:0;}
+  .skill-label{
+    font-family:var(--mono); font-size:12px; color:var(--text-faint);
+    margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .tag{
+    font-family:var(--mono); font-size:12.5px; color:var(--text);
+    background:var(--bg-elevated); border:1px solid var(--border);
+    padding:8px 13px; border-radius:999px; transition:transform .2s, background .2s, border-color .2s;
+  }
+  .tag:hover{transform:translateY(-3px); background:var(--accent-teal-soft); border-color:rgba(92,226,194,.42);}
+
+  /* ---------- EXPERIENCE (commit log style) ---------- */
+  .commit{
+    display:grid; grid-template-columns:20px 1fr; gap:18px;
+    padding:25px 24px 27px; position:relative; border:1px solid transparent; border-radius:12px; transition:background .2s, border-color .2s;
+  }
+  .commit:hover{background:rgba(255,255,255,.035); border-color:var(--border);}
+  .commit:last-child{padding-bottom:0;}
+  .commit-line{
+    position:relative; display:flex; justify-content:center;
+  }
+  .commit-line::before{
+    content:''; position:absolute; top:6px; bottom:-28px; width:1px; background:var(--border);
+  }
+  .commit:last-child .commit-line::before{display:none;}
+  .commit-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--accent-teal);
+    margin-top:5px; box-shadow:0 0 0 3px var(--accent-teal-soft);
+  }
+  .commit-body .commit-msg{font-weight:600; font-size:15px; margin-bottom:4px; color:var(--text);}
+  .commit-meta{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint); margin-bottom:8px;
+  }
+  .commit-desc{color:var(--text-dim); font-size:14.5px;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:var(--radius); padding:26px;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+  }
+  .project-card::before{content:''; position:absolute; width:200px; height:200px; right:-65px; top:-110px; border-radius:50%; background:radial-gradient(circle, rgba(169,152,255,.24), transparent 68%);}
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; flex-wrap:wrap;}
+  .project-title{font-family:var(--display); font-weight:600; font-size:19px;}
+  .project-tag{
+    font-family:var(--mono); font-size:11px; color:var(--accent-amber);
+    background:var(--accent-amber-soft);
+    border:1px solid rgba(181,121,26,0.25); padding:4px 10px; border-radius:20px;
+  }
+  .project-desc{color:var(--text-dim); font-size:14.5px; margin-bottom:14px;}
+  .project-links{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:14px;}
+  .project-links a{
+    font-family:var(--mono); font-size:12px; color:var(--accent-teal);
+    text-decoration:none; border-bottom:1px solid transparent;
+  }
+  .project-links a:hover{border-bottom-color:var(--accent-teal);}
+  .project-stack{display:flex; gap:8px; flex-wrap:wrap;}
+  .stack-chip{font-family:var(--mono); font-size:11px; color:var(--text-faint);}
+  .stack-chip:not(:last-child)::after{content:'·'; margin-left:8px; color:var(--border);}
+
+  /* ---------- EDUCATION ---------- */
+  .edu-item{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:18px 0; border-bottom:1px solid var(--border-soft); gap:16px; flex-wrap:wrap;
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-name{font-weight:600; font-size:15.5px; margin-bottom:4px;}
+  .edu-sub{color:var(--text-dim); font-size:13.5px;}
+  .edu-date{font-family:var(--mono); font-size:12px; color:var(--text-faint); white-space:nowrap;}
+
+  /* ---------- CERTS ---------- */
+  .cert-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:640px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert-card{
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:var(--radius); padding:18px 20px;
+    box-shadow:var(--shadow); transition:transform .2s, border-color .2s, background .2s;
+  }
+  .cert-card:hover{transform:translateY(-5px); border-color:rgba(169,152,255,.56); background:rgba(40,47,76,.9);}
+  .cert-name{font-weight:600; font-size:14.5px; margin-bottom:6px;}
+  .cert-meta{font-family:var(--mono); font-size:11.5px; color:var(--text-faint);}
+  .cert-meta .issuer{color:var(--accent-teal);}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:95px 0 62px; text-align:center;}
+  .contact-title{
+    font-family:var(--display); font-weight:700; font-size:clamp(26px,4vw,36px);
+    margin-bottom:16px;
+  }
+  .contact-sub{color:var(--text-dim); font-size:15px; margin-bottom:30px;}
+  .foot-note{
+    margin-top:50px; font-family:var(--mono); font-size:11.5px; color:var(--text-faint);
+  }
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .role-line .cursor{animation:none;}
+  }
+  @media(max-width:520px){.wrap{padding:0 18px}.nav-inner{padding:15px 18px}.editor-body{padding:34px 24px}.cta-row .btn{width:100%; justify-content:center}.commit{padding:19px 12px; gap:12px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">sanjana.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#certifications">certs</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="editor-chrome">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="filename">sanjana-kannan / profile.tsx</span>
+    </div>
+    <div class="editor-body">
+      <span class="eyebrow">"open to opportunities"</span>
+      <h1>Sanjana Kannan</h1>
+      <div class="role-line" id="roleLine"></div>
+      <p class="bio">First-year B.E. CSE student at KGiSL Institute of Technology, building on the front end and breaking things (safely) on the security side. I like turning half-formed ideas into working products — and understanding how those products can be attacked so I can build them better.</p>
+      <div class="location"><span class="location-mark"></span>Mettuppalaiyam, Tamil Nadu, India</div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/sanjana-kannan-64b033378/" target="_blank" rel="noopener">View LinkedIn <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="https://github.com/SanjanaKannan-R" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" href="#projects">See projects</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="reveal">
+    <div class="sec-head"><span class="n">// 01</span><span class="title">About</span></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a first-year Computer Science undergrad who spends most of my time somewhere between a code editor and a terminal — shipping front-end interfaces during the day, and working through TryHackMe rooms and CTFs on the side. "Vibe coder" is the honest description: I build fast, learn by doing, and iterate in public.</p>
+        <p>Cybersecurity pulled me in through curiosity about how things break. I've since worked through networking, Linux/Windows fundamentals, OSINT, web APIs, AI security, and forensics — with the front-end and security sides of my learning feeding into each other more than I expected.</p>
+      </div>
+      <div>
+        <div class="stat-block" style="margin-bottom:16px;">
+          <div class="stat-title">// linkedin</div>
+          <div class="stat-row"><span>connections</span><span class="val">500+</span></div>
+          <div class="stat-row"><span>followers</span><span class="val">940</span></div>
+          <div class="stat-row"><span>profile views (30d)</span><span class="val">140</span></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-title">// github</div>
+          <div class="stat-row"><span>public repos</span><span class="val">21</span></div>
+          <div class="stat-row"><span>contributions (past yr)</span><span class="val">122</span></div>
+          <div class="stat-row"><span>org</span><span class="val">@PyExpo2K26</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <div class="sec-head"><span class="n">// 02</span><span class="title">Skills</span></div>
+    <div class="skill-group">
+      <div class="skill-label">Languages</div>
+      <div class="tag-row">
+        <span class="tag">Python</span><span class="tag">C</span><span class="tag">JavaScript</span>
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Java</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Frameworks &amp; Tools</div>
+      <div class="tag-row">
+        <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Git &amp; GitHub</span>
+        <span class="tag">VS Code</span><span class="tag">Linux</span><span class="tag">System Architecture</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Cybersecurity</div>
+      <div class="tag-row">
+        <span class="tag">Kali Linux</span><span class="tag">Wireshark</span><span class="tag">Burp Suite</span>
+        <span class="tag">Networking Fundamentals</span><span class="tag">OSINT</span>
+        <span class="tag">Web API Security</span><span class="tag">AI Security</span>
+        <span class="tag">Digital Forensics</span><span class="tag">CTF / boot2root</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Cloud</div>
+      <div class="tag-row">
+        <span class="tag">AWS</span><span class="tag">Serverless Security</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <div class="sec-head"><span class="n">// 03</span><span class="title">Experience</span></div>
+
+    <div class="commit">
+      <div class="commit-line"><div class="commit-dot"></div></div>
+      <div class="commit-body">
+        <div class="commit-msg">Hackathon builder — PyExpo 2026</div>
+        <div class="commit-meta">5 months ago · Team project</div>
+        <div class="commit-desc">Built as part of a team during PyExpo 2026, contributing to Agri Genix, a platform tackling post-harvest crop wastage by connecting farmers directly to buyers and local storage.</div>
+      </div>
+    </div>
+
+    <div class="commit">
+      <div class="commit-line"><div class="commit-dot"></div></div>
+      <div class="commit-body">
+        <div class="commit-msg">Cyber Job Simulation — Deloitte Australia</div>
+        <div class="commit-meta">Forage · Issued Mar 2026</div>
+        <div class="commit-desc">Completed a simulated security analyst workflow — uncovering hidden threats, analyzing suspicious activity, and thinking through both attacker and defender perspectives.</div>
+      </div>
+    </div>
+
+    <div class="commit">
+      <div class="commit-line"><div class="commit-dot"></div></div>
+      <div class="commit-body">
+        <div class="commit-msg">First CTF — Rev Arena: Zenith</div>
+        <div class="commit-meta">4 months ago · with teammate Tarunika Muruganathan</div>
+        <div class="commit-desc">Competed in a first Capture the Flag event with no prior expectations — came away with practical exposure to CTF problem-solving and a taste for more.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="sec-head"><span class="n">// 04</span><span class="title">Projects</span></div>
+    <div class="project-card" style="margin-bottom:16px;">
+      <div class="project-top">
+        <div class="project-title">Agri Genix</div>
+        <div class="project-tag">Hackathon · PyExpo 2026</div>
+      </div>
+      <div class="project-desc">A platform aimed at reducing post-harvest crop wastage by digitally connecting farmers to buyers and localized "godown" storage — turning potential waste into sustainable profit for growers.</div>
+      <div class="project-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">Full-stack prototyping</span>
+        <span class="stack-chip">Team of 8</span>
+      </div>
+    </div>
+
+    <div class="skill-label" style="margin-bottom:14px;">GitHub repositories</div>
+    <div class="cert-grid">
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/Travel-planner" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">Travel-planner</div>
+        <div class="cert-meta"><span class="issuer">Python</span></div>
+      </a>
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/autonomous-hacks" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">autonomous-hacks</div>
+        <div class="cert-meta"><span class="issuer">JavaScript</span></div>
+      </a>
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/The-Futuristic-Innovator" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">The-Futuristic-Innovator</div>
+        <div class="cert-meta"><span class="issuer">Python</span></div>
+      </a>
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/Wander-Wise" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">Wander-Wise</div>
+        <div class="cert-meta"><span class="issuer">JavaScript</span></div>
+      </a>
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/Neural-networks" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">Neural-networks</div>
+        <div class="cert-meta"><span class="issuer">Python</span></div>
+      </a>
+      <a class="cert-card" href="https://github.com/SanjanaKannan-R/Thirukural-API" target="_blank" rel="noopener" style="text-decoration:none; display:block;">
+        <div class="cert-name">Thirukural-API</div>
+        <div class="cert-meta"><span class="issuer">Python</span></div>
+      </a>
+    </div>
+    <div class="project-links" style="margin-top:18px;">
+      <a href="https://github.com/SanjanaKannan-R?tab=repositories" target="_blank" rel="noopener">View all 21 repositories on GitHub ↗</a>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <div class="sec-head"><span class="n">// 05</span><span class="title">Education</span></div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">KGiSL Institute of Technology</div>
+        <div class="edu-sub">Bachelor of Engineering — Computer Science &amp; Engineering</div>
+      </div>
+      <div class="edu-date">2025 — Present</div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">Vijayalakshmi Matric Higher Secondary School</div>
+        <div class="edu-sub">Schooling</div>
+      </div>
+      <div class="edu-date">Jun 2011 — Mar 2025</div>
+    </div>
+  </section>
+
+  <section id="certifications" class="reveal">
+    <div class="sec-head"><span class="n">// 06</span><span class="title">Certifications</span></div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-name">Cyber Job Simulation</div>
+        <div class="cert-meta"><span class="issuer">Deloitte Australia</span> via Forage · Mar 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">AWS Certified Solutions Architect (Job Simulation)</div>
+        <div class="cert-meta"><span class="issuer">AWS</span> via Forage · Nov 2025</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">AWS Security &amp; Observability for Serverless Applications</div>
+        <div class="cert-meta"><span class="issuer">AWS Training &amp; Certification</span></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Java (Basic) Skill Certification</div>
+        <div class="cert-meta"><span class="issuer">HackerRank</span></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Digital Skills: Artificial Intelligence — 87%</div>
+        <div class="cert-meta"><span class="issuer">Accenture</span> via FutureLearn</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Pre Security Learning Path (19 hrs)</div>
+        <div class="cert-meta"><span class="issuer">TryHackMe</span></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Hacker Holidays 2026 Challenge</div>
+        <div class="cert-meta"><span class="issuer">TryHackMe</span> · OSINT, Web APIs, AI Security, Forensics</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Academic Research Fundamentals</div>
+        <div class="cert-meta"><span class="issuer">University of California, Irvine</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <p style="font-family:var(--mono); font-size:13px; color:var(--text-faint); font-style:italic; margin-bottom:36px;">"Security is not a product, but a process." — Bruce Schneier</p>
+    <div class="contact-title">Let's connect.</div>
+    <p class="contact-sub">Open to opportunities in front-end development and cybersecurity.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn btn-primary" href="https://www.linkedin.com/in/sanjana-kannan-64b033378/" target="_blank" rel="noopener">Message on LinkedIn →</a>
+      <a class="btn btn-ghost" href="https://github.com/SanjanaKannan-R" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+   
+  </footer>
+
+</div>
+
+<script>
+  // typewriter role line
+  const roles = ["Front-end developer", "Vibe coder", "Cybersecurity enthusiast"];
+  const el = document.getElementById('roleLine');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced) {
+    el.textContent = roles.join(" · ");
+  } else {
+    let ri = 0, ci = 0, deleting = false;
+    function tick(){
+      const word = roles[ri];
+      if(!deleting){
+        ci++;
+        if(ci > word.length){ deleting = true; setTimeout(tick, 1200); return; }
+      } else {
+        ci--;
+        if(ci < 0){ deleting = false; ri = (ri+1) % roles.length; ci = 0; }
+      }
+      el.innerHTML = word.slice(0, ci) + '<span class="cursor"></span>';
+      setTimeout(tick, deleting ? 40 : 70);
+    }
+    tick();
+  }
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
